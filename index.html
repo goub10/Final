@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلومات الجهاز</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9; /* خلفية بلون فاتح */
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            margin: 0; /* إزالة الهوامش الافتراضية */
+        }
+        h1 {
+            font-size: 32px; /* حجم خط العنوان الرئيسي */
+            color: #007bff; /* لون أزرق */
+            margin-bottom: 30px; /* مساحة تحت العنوان */
+        }
+        #device-info {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: inline-block; /* لجعل العنصر يأخذ المحتوى فقط */
+            transition: transform 0.2s; /* تأثير الحركة عند التمرير */
+        }
+        #device-info:hover {
+            transform: scale(1.02); /* تكبير طفيف عند التمرير */
+        }
+        h2 {
+            font-size: 24px; /* حجم خط العنوان */
+            color: #28a745; /* لون أخضر */
+            margin-bottom: 10px; /* مساحة تحت العنوان */
+        }
+        p {
+            font-size: 20px; /* حجم خط المعلومات */
+            line-height: 1.6; /* ارتفاع السطر */
+            margin: 5px 0; /* هوامش بين الفقرات */
+        }
+    </style>
+    <script>
+        function detectDevice() {
+            var userAgent = navigator.userAgent;
+            var deviceName = "غير معروف";
+            var deviceModel = "غير معروف";
+            var os = "غير معروف";
+
+            // تحديد نظام التشغيل بناءً على الـ User-Agent
+            if (/android/i.test(userAgent)) {
+                os = "Android";
+
+                // محاولة الكشف عن أشهر العلامات التجارية للأجهزة العاملة بنظام Android
+                if (/Samsung/i.test(userAgent)) {
+                    deviceName = "Samsung";
+                    var match = userAgent.match(/SM-[A-Z0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/Huawei/i.test(userAgent)) {
+                    deviceName = "Huawei";
+                    var match = userAgent.match(/HUAWEI [A-Z0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/Xiaomi/i.test(userAgent)) {
+                    deviceName = "Xiaomi";
+                    var match = userAgent.match(/MIX [A-Z0-9]+|Mi [A-Z0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/Oppo/i.test(userAgent)) {
+                    deviceName = "Oppo";
+                    var match = userAgent.match(/CPH[0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/OnePlus/i.test(userAgent)) {
+                    deviceName = "OnePlus";
+                    var match = userAgent.match(/ONEPLUS [A-Z0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/Google/i.test(userAgent)) {
+                    deviceName = "Google";
+                    var match = userAgent.match(/Pixel [A-Z0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/Sony/i.test(userAgent)) {
+                    deviceName = "Sony";
+                    var match = userAgent.match(/G[0-9]+|H[0-9]+|J[0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/LG/i.test(userAgent)) {
+                    deviceName = "LG";
+                    var match = userAgent.match(/LM-[A-Z0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/Vivo/i.test(userAgent)) {
+                    deviceName = "Vivo";
+                    var match = userAgent.match(/V[0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else if (/Realme/i.test(userAgent)) {
+                    deviceName = "Realme";
+                    var match = userAgent.match(/RMX[0-9]+/);
+                    deviceModel = match ? match[0] : "غير معروف";
+                } else {
+                    deviceName = "جهاز Android غير معروف";
+                    deviceModel = "غير معروف";
+                }
+
+            } else if (/iPhone/i.test(userAgent)) {
+                os = "iOS";
+                deviceName = "Apple";
+                if (/iPhone X/.test(userAgent)) {
+                    deviceModel = "iPhone X";
+                } else if (/iPhone 11/.test(userAgent)) {
+                    deviceModel = "iPhone 11";
+                } else if (/iPhone 12/.test(userAgent)) {
+                    deviceModel = "iPhone 12";
+                } else if (/iPhone 13/.test(userAgent)) {
+                    deviceModel = "iPhone 13";
+                } else if (/iPhone 14/.test(userAgent)) {
+                    deviceModel = "iPhone 14";
+                } else {
+                    deviceModel = "iPhone";
+                }
+            } else if (/iPad/i.test(userAgent)) {
+                os = "iOS";
+                deviceName = "Apple";
+                deviceModel = "iPad";
+            } else if (/Windows/i.test(userAgent)) {
+                os = "Windows";
+                deviceName = "Windows";
+                deviceModel = "غير معروف";
+            } else if (/Mac/i.test(userAgent)) {
+                os = "Mac OS";
+                deviceName = "Apple";
+                deviceModel = "غير معروف";
+            } else if (/Linux/i.test(userAgent)) {
+                os = "Linux";
+                deviceName = "Linux";
+                deviceModel = "غير معروف";
+            }
+
+            // تحديث محتوى الصفحة بعرض اسم الجهاز ونظام التشغيل والموديل
+            document.getElementById("device-info").innerHTML = 
+                `<h2>اسم الجهاز: ${deviceName}</h2>` +  // إضافة اسم الجهاز كعنوان فرعي
+                `<p>موديل الجهاز: ${deviceModel}</p>` +  // إضافة موديل الجهاز
+                `<p>نظام التشغيل: ${os}</p>`;  // إضافة نظام التشغيل
+        }
+    </script>
+</head>
+<body onload="detectDevice()">
+    <h1>معلومات الجهاز</h1> <!-- عنوان الصفحة الرئيسي -->
+    <div id="device-info"></div> <!-- معلومات الجهاز -->
+</body>
+</html>
